@@ -1,11 +1,9 @@
-﻿CREATE TABLE Entidad_reguladora
-(
+﻿CREATE TABLE Entidad_reguladora(
   CodEntidad NUMBER NOT NULL,
   PRIMARY KEY (CodEntidad)
 );
 
-CREATE TABLE Gestor_responsable
-(
+CREATE TABLE Gestor_responsable(
   NIF NUMBER NOT NULL,
   Nombre VARCHAR2(50) NOT NULL,
   Apellido VARCHAR2(50) NOT NULL,
@@ -18,8 +16,7 @@ CREATE TABLE Gestor_responsable
   PRIMARY KEY (NIF)
 );
 
-CREATE TABLE Granja
-(
+CREATE TABLE Granja(
   GPS VARCHAR2(50) NOT NULL,
   Numero VARCHAR2(10) NOT NULL,
   Calle VARCHAR2(100) NOT NULL,
@@ -27,8 +24,7 @@ CREATE TABLE Granja
   PRIMARY KEY (NIF_titular)
 );
 
-CREATE TABLE Fabrica
-(
+CREATE TABLE Fabrica(
   GPS VARCHAR2(50) NOT NULL,
   Calle VARCHAR2(100) NOT NULL,
   Numero VARCHAR2(10) NOT NULL,
@@ -45,8 +41,7 @@ CREATE TABLE Fabrica
   PRIMARY KEY (NIF_empresa)
 );
 
-CREATE TABLE Quimicos
-(
+CREATE TABLE Quimicos(
   Cod_quimico NUMBER NOT NULL,
   Cant NUMBER NOT NULL,
   DiaQuimico NUMBER NOT NULL,
@@ -55,8 +50,7 @@ CREATE TABLE Quimicos
   PRIMARY KEY (Cod_quimico)
 );
 
-CREATE TABLE Destinatario
-(
+CREATE TABLE Destinatario(
   NIF NUMBER NOT NULL,
   Calle VARCHAR2(100) NOT NULL,
   Numero VARCHAR2(10) NOT NULL,
@@ -67,8 +61,7 @@ CREATE TABLE Destinatario
   PRIMARY KEY (NIF)
 );
 
-CREATE TABLE Empresa_logistica
-(
+CREATE TABLE Empresa_logistica(
   NIF NUMBER NOT NULL,
   Denominacion VARCHAR2(100) NOT NULL,
   Calle VARCHAR2(100) NOT NULL,
@@ -82,8 +75,7 @@ CREATE TABLE Empresa_logistica
   PRIMARY KEY (NIF)
 );
 
-CREATE TABLE Envases
-(
+CREATE TABLE Envases(
   NIF_fabricante NUMBER NOT NULL,
   CodEnvase NUMBER NOT NULL,
   Factor_resistencia_acidos NUMBER NOT NULL,
@@ -92,8 +84,7 @@ CREATE TABLE Envases
   PRIMARY KEY (CodEnvase)
 );
 
-CREATE TABLE Alerta
-(
+CREATE TABLE Alerta(
   CodAlerta NUMBER NOT NULL,
   Tipo VARCHAR2(50) NOT NULL,
   DiaAlerta NUMBER NOT NULL,
@@ -108,8 +99,7 @@ CREATE TABLE Alerta
   PRIMARY KEY (CodAlerta)
 );
 
-CREATE TABLE Fertilizantes_y_Agroquimicos
-(
+CREATE TABLE Fertilizantes_y_Agroquimicos(
   Cod_Producto NUMBER NOT NULL,
   Denominacion VARCHAR2(100) NOT NULL,
   Fabricante VARCHAR2(100) NOT NULL,
@@ -120,8 +110,7 @@ CREATE TABLE Fertilizantes_y_Agroquimicos
   PRIMARY KEY (Cod_Producto)
 );
 
-CREATE TABLE Productos_Veterinarios_y_Vacunas
-(
+CREATE TABLE Productos_Veterinarios_y_Vacunas(
   Cod_Medicamento NUMBER NOT NULL,
   Cod_Fabricante NUMBER NOT NULL,
   DiaMedicamento NUMBER NOT NULL,
@@ -131,8 +120,7 @@ CREATE TABLE Productos_Veterinarios_y_Vacunas
   PRIMARY KEY (Cod_Medicamento)
 );
 
-CREATE TABLE Incorporar
-(
+CREATE TABLE Incorporar(
   NIF_empresa NUMBER NOT NULL,
   Cod_quimico NUMBER NOT NULL,
   PRIMARY KEY (NIF_empresa, Cod_quimico),
@@ -140,8 +128,7 @@ CREATE TABLE Incorporar
   FOREIGN KEY (Cod_quimico) REFERENCES Quimicos(Cod_quimico)
 );
 
-CREATE TABLE Ir
-(
+CREATE TABLE Ir(
   Cod_quimico NUMBER NOT NULL,
   NIF NUMBER NOT NULL,
   PRIMARY KEY (Cod_quimico, NIF),
@@ -149,8 +136,7 @@ CREATE TABLE Ir
   FOREIGN KEY (NIF) REFERENCES Destinatario(NIF)
 );
 
-CREATE TABLE Realizar
-(
+CREATE TABLE Realizar(
   Cod_quimico NUMBER NOT NULL,
   NIF NUMBER NOT NULL,
   PRIMARY KEY (Cod_quimico, NIF),
@@ -158,8 +144,7 @@ CREATE TABLE Realizar
   FOREIGN KEY (NIF) REFERENCES Empresa_logistica(NIF)
 );
 
-CREATE TABLE Utilizar
-(
+CREATE TABLE Utilizar(
   NIF_empresa NUMBER NOT NULL,
   CodEnvase NUMBER NOT NULL,
   PRIMARY KEY (NIF_empresa, CodEnvase),
@@ -167,8 +152,7 @@ CREATE TABLE Utilizar
   FOREIGN KEY (CodEnvase) REFERENCES Envases(CodEnvase)
 );
 
-CREATE TABLE Constar
-(
+CREATE TABLE Constar(
   NIF_titular NUMBER NOT NULL,
   Cod_Medicamento NUMBER NOT NULL,
   PRIMARY KEY (NIF_titular, Cod_Medicamento),
@@ -176,8 +160,7 @@ CREATE TABLE Constar
   FOREIGN KEY (Cod_Medicamento) REFERENCES Productos_Veterinarios_y_Vacunas(Cod_Medicamento)
 );
 
-CREATE TABLE Productor
-(
+CREATE TABLE Productor(
   NIF NUMBER NOT NULL,
   Denominacion VARCHAR2(100) NOT NULL,
   Numero VARCHAR2(10) NOT NULL,
@@ -195,22 +178,19 @@ CREATE TABLE Productor
   FOREIGN KEY (NIF) REFERENCES Gestor_responsable(NIF)
 );
 
-CREATE TABLE Empresa
-(
+CREATE TABLE Empresa(
   NIF NUMBER NOT NULL,
   PRIMARY KEY (NIF),
   FOREIGN KEY (NIF) REFERENCES Productor(NIF)
 );
 
-CREATE TABLE Autonomo
-(
+CREATE TABLE Autonomo(
   NIF NUMBER NOT NULL,
   PRIMARY KEY (NIF),
   FOREIGN KEY (NIF) REFERENCES Productor(NIF)
 );
 
-CREATE TABLE Ser_miembro
-(
+CREATE TABLE Ser_miembro(
   Fecha DATE NOT NULL,
   Documento VARCHAR2(100) NOT NULL,
   CodEntidad NUMBER NOT NULL,
@@ -220,8 +200,7 @@ CREATE TABLE Ser_miembro
   FOREIGN KEY (NIF) REFERENCES Productor(NIF)
 );
 
-CREATE TABLE Producto
-(
+CREATE TABLE Producto(
   CodProducto NUMBER NOT NULL,
   CodRegistroSanitario VARCHAR2(50) NOT NULL,
   FechaProduccion DATE NOT NULL,
@@ -235,8 +214,7 @@ CREATE TABLE Producto
   FOREIGN KEY (NIF) REFERENCES Productor(NIF)
 );
 
-CREATE TABLE Aceite_de_oliva
-(
+CREATE TABLE Aceite_de_oliva(
   Acidez NUMBER NOT NULL,
   GPS VARCHAR2(50) NOT NULL,
   Riego_diario NUMBER NOT NULL,
@@ -248,8 +226,7 @@ CREATE TABLE Aceite_de_oliva
   FOREIGN KEY (CodProducto) REFERENCES Producto(CodProducto)
 );
 
-CREATE TABLE Vino
-(
+CREATE TABLE Vino(
   Graduacion NUMBER NOT NULL,
   Tipo VARCHAR2(50) NOT NULL,
   GPS VARCHAR2(50) NOT NULL,
@@ -262,8 +239,7 @@ CREATE TABLE Vino
   FOREIGN KEY (CodProducto) REFERENCES Producto(CodProducto)
 );
 
-CREATE TABLE Lacteos
-(
+CREATE TABLE Lacteos(
   Temperatura_min NUMBER NOT NULL,
   Caducidad DATE NOT NULL,
   Tipo VARCHAR2(50) NOT NULL,
@@ -273,8 +249,7 @@ CREATE TABLE Lacteos
   FOREIGN KEY (CodProducto) REFERENCES Producto(CodProducto)
 );
 
-CREATE TABLE Elaborar
-(
+CREATE TABLE Elaborar(
   CodProducto NUMBER NOT NULL,
   NIF_empresa NUMBER NOT NULL,
   PRIMARY KEY (CodProducto, NIF_empresa),
@@ -282,8 +257,7 @@ CREATE TABLE Elaborar
   FOREIGN KEY (NIF_empresa) REFERENCES Fabrica(NIF_empresa)
 );
 
-CREATE TABLE Provenir
-(
+CREATE TABLE Provenir(
   CodProducto NUMBER NOT NULL,
   NIF_titular NUMBER NOT NULL,
   PRIMARY KEY (CodProducto, NIF_titular),
@@ -291,8 +265,7 @@ CREATE TABLE Provenir
   FOREIGN KEY (NIF_titular) REFERENCES Granja(NIF_titular)
 );
 
-CREATE TABLE Contener
-(
+CREATE TABLE Contener(
   CodProducto NUMBER NOT NULL,
   Cod_Producto NUMBER NOT NULL,
   PRIMARY KEY (CodProducto, Cod_Producto),
